@@ -7,7 +7,6 @@ package plugin
 import (
 	"context"
 	"log"
-	"strings"
 
 	"github.com/rssnyder/harness-go-utils/config"
 	"github.com/rssnyder/harness-go-utils/secrets"
@@ -28,16 +27,14 @@ type Args struct {
 // Exec executes the plugin.
 func Exec(ctx context.Context, args Args) (err error) {
 
-	identifier := strings.ReplaceAll(strings.ReplaceAll(args.Name, " ", "_"), "-", "")
-
 	client, hCtx := config.GetNextgenClient()
 
-	err = secrets.SetSecretText(hCtx, client, identifier, args.Name, args.Value, args.SecretManager)
+	err = secrets.SetSecretText(hCtx, client, args.Name, args.Value, args.SecretManager)
 	if err != nil {
 		return err
 	}
 
-	log.Printf("saved: %s\n", identifier)
+	log.Printf("saved: %s\n", args.Name)
 
 	return
 }
