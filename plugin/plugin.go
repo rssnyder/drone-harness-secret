@@ -7,7 +7,6 @@ package plugin
 import (
 	"context"
 	"log"
-	"strings"
 
 	"github.com/rssnyder/harness-go-utils/config"
 	"github.com/rssnyder/harness-go-utils/secrets"
@@ -35,7 +34,7 @@ func Exec(ctx context.Context, args Args) (err error) {
 		return err
 	}
 
-	log.Printf("saved: %s\n", identifier)
+	log.Printf("saved: %s\n", args.Name)
 
 	return
 }
